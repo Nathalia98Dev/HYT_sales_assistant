@@ -57,10 +57,10 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
         panel.add(panelCell);
         
         /* panelTable = new JPanel(); // creacion del panel
-        panelTable.setBounds(10, 105, 620, 610); // se ubica el panel 
-        panelTable.setBackground(Color.BLUE); // se le coloca un fondo al panel 
-        panelTable.setLayout(null);
-        panel.add(panelTable); */
+           panelTable.setBounds(10, 105, 620, 610); // se ubica el panel 
+           panelTable.setBackground(Color.BLUE); // se le coloca un fondo al panel 
+           panelTable.setLayout(null);
+           panel.add(panelTable);*/
     }
 
     private void labels() {
@@ -87,6 +87,8 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
         tip = new JLabel();
         tipC = new JLabel();
 
+        speech.setBackground(Color.RED);
+        // speech.setText("hola");
         speech.setText("<html><p><b>Buenos días, ____ te habla ____ soy la persona encargada de darte la bienvenida, a HYT, la Super APP que acabas de descargar ¿Cómo estás? ¿Cómo va tu día? Veo que obtuviste la aplicación a través de uno de nuestros comercios afiliados</b> <i>(En caso de que sea de un referido: Enlace de invitación, Si fue una descarga directa: a través de APP STORE O GOOGLE PLAY)</i></p><p><b>El motivo de mi llamada es familiarizarte con las diversas funcionalidades de nuestra super APP _________<i>(Nombre del cliente)</i> Te comento, HYT, cuenta con varios servicios y productos, por ende, te hare algunas preguntas para poder identificar cuales se ajustan más a tu perfil y necesidad ¿vale? ¿Cuéntame qué te llamó la atención, que fue lo que te motivo a descargar nuestra App?</b></p></html>");
         tip.setText("<html><ol><li>Identifica al cliente por su nombre de forma jovial</li><li>Ve el detalle en el CRM de cuando descargo la aplicación y la fuente ((que el TL lo tome automático del CRM))</li></ol></html>");
         // speechC.setText("Speech");
@@ -202,8 +204,8 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
 
         tableClient.getColumnModel().getColumn(6).setCellEditor(new DefaultCellEditor(comboBox));
         /* DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-        renderer.setToolTipText("Click for combo box");
-        tableClient.getColumnModel().getColumn(6).setCellRenderer(renderer); */
+           renderer.setToolTipText("Click for combo box");
+           tableClient.getColumnModel().getColumn(6).setCellRenderer(renderer);*/
 
         scrollPane.setBounds(10, 60, 990, 40);
         panel.add(scrollPane);
@@ -213,8 +215,8 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
 
         JScrollPane scrollPane2 = new JScrollPane(tableSpeech);
         tableSpeech.setFillsViewportHeight(true);
-        tableSpeech.setRowSelectionAllowed(false);
-        tableSpeech.setRowHeight(500);
+        tableSpeech.setRowSelectionAllowed(true);
+        // tableSpeech.setRowHeight(500);
         tableSpeech.getTableHeader().setReorderingAllowed(false);
 
         // tableSpeech.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(panelCell));
