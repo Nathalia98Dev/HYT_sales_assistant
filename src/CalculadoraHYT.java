@@ -12,11 +12,13 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
     public final String COMERCIO = "Comercio";
 
     private JLabel title, image, speech, tip, speechC, tipC, download;
-    private JPanel panel, panelTable, panelCell;
+    private JPanel panel, panelTable, panelCell, panelDescargaDirecta, panelAfiliado, panelComercio, panelScroll;
     private JRadioButton radioB1, radioB2, radioB3, radioB4, radioB5, radioB6, radioB7, radioB8, radioB9;
     private ButtonGroup group;
     private JTable tableClient, tableSpeech;
     private JComboBox comboBox;
+    private CardLayout tipCliente;
+    private JScrollPane scrollWindow;
 
     private String select = "";
 
@@ -40,27 +42,31 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
     }
 
     private void panels() {
+        // Creacion de panel de tipo de cliente, el cual contiene a los tres paneles de descarga directa, afiliado y comercio
+        // Inicializo el layout y el panel para las tarjetas
+        tipCliente = new CardLayout();
+
         panel = new JPanel(); // creacion del panel
         this.getContentPane().add(panel); // agregamos el panel a la ventana
-        panel.setLayout(null);
+        panel.setLayout(null);        
         
         panelTable = new JPanel(); // creacion del panel
         panelTable.setBounds(10, 105, 620, 610); // se ubica el panel 
         panelTable.setBackground(Color.BLUE); // se le coloca un fondo al panel 
-        panelTable.setLayout(null);
+        panelTable.setLayout(tipCliente);
         panel.add(panelTable);
 
-        panelCell = new JPanel(); // creacion del panel
-        panelCell.setBounds(10, 105, 620, 610); // se ubica el panel 
-        panelCell.setBackground(Color.BLUE); // se le coloca un fondo al panel 
-        panelCell.setLayout(null);
-        panel.add(panelCell);
+        // panelCell = new JPanel(); // creacion del panel
+        // panelCell.setBounds(10, 105, 620, 610); // se ubica el panel 
+        // panelCell.setBackground(Color.BLUE); // se le coloca un fondo al panel 
+        // panelCell.setLayout(null);
+        // panel.add(panelCell);
         
-        /* panelTable = new JPanel(); // creacion del panel
-           panelTable.setBounds(10, 105, 620, 610); // se ubica el panel 
-           panelTable.setBackground(Color.BLUE); // se le coloca un fondo al panel 
-           panelTable.setLayout(null);
-           panel.add(panelTable);*/
+        /*panelTable = new JPanel(); // creacion del panel
+        panelTable.setBounds(10, 105, 620, 610); // se ubica el panel 
+        panelTable.setBackground(Color.BLUE); // se le coloca un fondo al panel 
+        panelTable.setLayout(null);
+        panel.add(panelTable);*/
     }
 
     private void labels() {
@@ -96,6 +102,7 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
 
         // combox para la ultima columna
         comboBox = new JComboBox();
+        comboBox.addItem("Seleccione");
         comboBox.addItem(DESCARGA_DIRECTA);
         comboBox.addItem(AFILIADO);
         comboBox.addItem(COMERCIO);
@@ -111,27 +118,41 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
 
     @Override
     public void itemStateChanged(ItemEvent e) {
+        select = comboBox.getSelectedItem().toString();
+        panelDescargaDirecta = new JPanel();
+        panelAfiliado = new JPanel();
+        panelComercio = new JPanel();
+
         if (e.getSource() == comboBox) {
-            select = comboBox.getSelectedItem().toString();
 
             if (select.equals(DESCARGA_DIRECTA)) {
-                // speechC.setText("<html><p>Veo que obtuviste la aplicación a través de uno de nuestros comercios afiliados. Sin embargo, ante todo me encantaría darte una calurosa bienvenida, a nuestra Super APP, ¿Cómo estás? ¿Cómo va tu día? ________ me alegra mucho _________</p><html>");
-                // tipC.setText("<html><p><ol><li>Menciona el nombre del comercio</li><li>Escucha al cliente con atención, intenta ser simpático y agradable, usa un tono de voz moderado y evita hablar muy rápido eso generara confianza e inspiraras profesionalismo</li><li>Respóndele al cliente en caso de que te pregunte ¿cómo te va? O si indica que está bien sigue el speech</li></ol></p><html>");
-                title.setText(select);
-                speechC.setText(select);
-                tipC.setText(select);
-            } else if (select.equals(AFILIADO)) {
-                // speechC.setText("<html><p>Veo que obtuviste la aplicación a través del enlace de invitación de uno de nuestros usuarios, Sin embargo, ante todo me encantaría darte una calurosa bienvenida, a nuestra Super APP, ¿Cómo estás? ¿Cómo va tu día? _____________ me alegra mucho _________</p><html>");
-                // tipC.setText("<html><p><ol><li>Escucha al cliente con atención, intenta ser simpático y agradable, usa un tono de voz moderado y evita hablar muy rápido eso generara confianza e inspiraras profesionalismo</li><li>Respóndele al cliente en caso de que te pregunte ¿cómo te va? O si indica que está bien, sigue el speech</li></ol></p><html>");
-                title.setText(select);
-                speechC.setText(select);
-                tipC.setText(select);
-            } else if (select.equals(COMERCIO)) {
-                // speechC.setText("<html><p>Veo que obtuviste la aplicación a través de uno de nuestros comercios afiliados*, Sin embargo, ante todo me encantaría darte una calurosa bienvenida, a nuestra Super APP, ¿Cómo estás? ¿Cómo va tu día? me alegra mucho __________ </p><html>");
-                // tipC.setText("<html><p><ol><li>Escucha al cliente con atención, intenta ser simpático y agradable, usa un tono de voz moderado y evita hablar muy rápido eso generara confianza e inspiraras profesionalismo.</li><li>Respóndele al cliente en caso de que te pregunte ¿cómo te va? O si indica que está bien, sigue el speech</li></ol></p><html>");
-                title.setText(select);
-                speechC.setText(select);
-                tipC.setText(select);
+                speechC.setText("<html><p>Veo que obtuviste la aplicación a través de uno de nuestros comercios afiliados. Sin embargo, ante todo me encantaría darte una calurosa bienvenida, a nuestra Super APP, ¿Cómo estás? ¿Cómo va tu día? ________ me alegra mucho _________</p><html>");
+                tipC.setText("<html><p><ol><li>Menciona el nombre del comercio</li><li>Escucha al cliente con atención, intenta ser simpático y agradable, usa un tono de voz moderado y evita hablar muy rápido eso generara confianza e inspiraras profesionalismo</li><li>Respóndele al cliente en caso de que te pregunte ¿cómo te va? O si indica que está bien sigue el speech</li></ol></p><html>");
+                panelDescargaDirecta.setBackground(Color.GREEN);               
+                panelDescargaDirecta.add(speechC);
+                panelDescargaDirecta.add(tipC);
+                panelTable.add(panelDescargaDirecta);
+                tipCliente.next(panelTable); 
+            } 
+            
+            if (select.equals(AFILIADO)) {
+                speechC.setText("<html><p>Veo que obtuviste la aplicación a través del enlace de invitación de uno de nuestros usuarios, Sin embargo, ante todo me encantaría darte una calurosa bienvenida, a nuestra Super APP, ¿Cómo estás? ¿Cómo va tu día? _____________ me alegra mucho _________</p><html>");
+                tipC.setText("<html><p><ol><li>Escucha al cliente con atención, intenta ser simpático y agradable, usa un tono de voz moderado y evita hablar muy rápido eso generara confianza e inspiraras profesionalismo</li><li>Respóndele al cliente en caso de que te pregunte ¿cómo te va? O si indica que está bien, sigue el speech</li></ol></p><html>");
+                panelAfiliado.setBackground(Color.BLUE);             
+                panelAfiliado.add(speechC);
+                panelAfiliado.add(tipC);
+                panelTable.add(panelAfiliado);
+                tipCliente.next(panelTable); 
+            } 
+            
+            if (select.equals(COMERCIO)) {
+                speechC.setText("<html><p>Veo que obtuviste la aplicación a través de uno de nuestros comercios afiliados*, Sin embargo, ante todo me encantaría darte una calurosa bienvenida, a nuestra Super APP, ¿Cómo estás? ¿Cómo va tu día? me alegra mucho __________ </p><html>");
+                tipC.setText("<html><p><ol><li>Escucha al cliente con atención, intenta ser simpático y agradable, usa un tono de voz moderado y evita hablar muy rápido eso generara confianza e inspiraras profesionalismo.</li><li>Respóndele al cliente en caso de que te pregunte ¿cómo te va? O si indica que está bien, sigue el speech</li></ol></p><html>");
+                panelComercio.setBackground(Color.MAGENTA);               
+                panelComercio.add(speechC);
+                panelComercio.add(tipC);
+                panelTable.add(panelComercio);
+                tipCliente.next(panelTable); 
             }
         }
     }
@@ -226,7 +247,8 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
         // tableSpeech.getColumnModel().getColumn(0).setCellRenderer(cell);
 
         scrollPane2.setBounds(10, 10, 600, 600);
-        panelTable.add(scrollPane2);
+        // panelTable.add(scrollPane2);
+        // panelDescargaDirecta.add(scrollPane2);
     }
 
     @Override
@@ -251,7 +273,7 @@ public class CalculadoraHYT extends JFrame implements ActionListener, ItemListen
         formulario1.setVisible(true);
 
         // para que la ventana no se pueda cambiar de tamaño
-        formulario1.setResizable(false);
+        formulario1.setResizable(true);
 
         // para que la ventana se inicie en el centro de la pantalla
         formulario1.setLocationRelativeTo(null);
